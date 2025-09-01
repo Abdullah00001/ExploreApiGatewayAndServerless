@@ -1,0 +1,14 @@
+import { Redis } from "ioredis";
+import { env } from "../env.js";
+
+const redisClient = new Redis(env.REDIS_URI, { maxRetriesPerRequest: null });
+
+redisClient.on("connect", () => {
+  console.log("Connected to Redis");
+});
+
+redisClient.on("error", (err) => {
+  console.error("Redis connection error:", err);
+});
+
+export default redisClient;
